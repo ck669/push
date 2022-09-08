@@ -5,6 +5,7 @@ from wechatpy.client.api import WeChatMessage
 import requests
 import os
 import random
+import re
 
 nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
 today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
@@ -24,7 +25,7 @@ if app_id is None or app_secret is None:
   exit(422)
 
 if not user_ids:
-  print('请设置 USER_ID，若存在多个 ID 用空格分开')
+  print('请设置 USER_ID，若存在多个 ID 用回车分开')
   exit(422)
 
 if template_id is None:
@@ -37,11 +38,20 @@ def get_weather():
     print('请设置城市')
     return None
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  res = requests.get(url).json()
+  # OpenRefactory Warning: The 'requests.get' method does not use any 'timeout' threshold which may cause program to hang indefinitely.
+  res = requests.get(url, timeout=100).json()
   if res is None:
+    return None
+  if res['code'] != 0:
     return None
   weather = res['data']['list'][0]
   return weather
+
+# 获取当前日期为星期几
+def get_week_day():
+  week_list = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+  week_day = week_list[datetime.date(today).weekday()]
+  return week_day
 
 # 纪念日正数
 def get_memorial_days_count():
@@ -51,19 +61,28 @@ def get_memorial_days_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
   return delta.days
 
-# 生日倒计时
-def get_birthday_left():
-  if birthday is None:
-    print('没有设置 BIRTHDAY')
+# 各种倒计时
+def get_counter_left(aim_date):
+  if aim_date is None:
     return 0
-  next = datetime.strptime(str(today.year) + "-" + birthday, "%Y-%m-%d")
+
+  # 为了经常填错日期的同学们
+  if re.match(r'^\d{1,2}\-\d{1,2}$', aim_date):
+    next = datetime.strptime(str(date.today().year) + "-" + aim_date, "%Y-%m-%d")
+  elif re.match(r'^\d{2,4}\-\d{1,2}\-\d{1,2}$', aim_date):
+    next = datetime.strptime(aim_date, "%Y-%m-%d")
+    next = next.replace(nowtime.year)
+  else:
+    print('日期格式不符合要求')
+    
   if next < nowtime:
     next = next.replace(year=next.year + 1)
   return (next - today).days
 
 # 彩虹屁 接口不稳定，所以失败的话会重新调用，直到成功
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
+  # OpenRefactory Warning: The 'requests.get' method does not use any 'timeout' threshold which may cause program to hang indefinitely.
+  words = requests.get("https://api.shadiao.pro/chp", timeout=100)
   if words.status_code != 200:
     return get_words()
   return words.json()['data']['text']
@@ -75,13 +94,12 @@ def format_temperature(temperature):
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
 
-try:
-  client = WeChatClient(app_id, app_secret)
-except WeChatClientException as e:
-  print('微信获取 token 失败，请检查 APP_ID 和 APP_SECRET，或当日调用量是否已达到微信限制。')
-  exit(502)
+# 返回一个数组，循环产生变量
+def split_birthday():
+  if birthday is None:
+    return None
+  return birthday.split('\n')
 
-wm = WeChatMessage(client)
 weather = get_weather()
 if weather is None:
   print('获取天气失败')
@@ -95,8 +113,28 @@ data = {
     "value": today.strftime('%Y年%m月%d日'),
     "color": get_random_color()
   },
+  "week_day": {
+    "value": get_week_day(),
+    "color": get_random_color()
+  },
   "weather": {
     "value": weather['weather'],
+    "color": get_random_color()
+  },
+  "humidity": {
+    "value": weather['humidity'],
+    "color": get_random_color()
+  },
+  "wind": {
+    "value": weather['wind'],
+    "color": get_random_color()
+  },
+  "air_data": {
+    "value": weather['airData'],
+    "color": get_random_color()
+  },
+  "air_quality": {
+    "value": weather['airQuality'],
     "color": get_random_color()
   },
   "temperature": {
@@ -115,20 +153,33 @@ data = {
     "value": get_memorial_days_count(),
     "color": get_random_color()
   },
-  "birthday_left": {
-    "value": get_birthday_left(),
-    "color": get_random_color()
-  },
   "words": {
     "value": get_words(),
     "color": get_random_color()
   },
 }
 
+for index, aim_date in enumerate(split_birthday()):
+  key_name = "birthday_left"
+  if index != 0:
+    key_name = key_name + "_%d" % index
+  data[key_name] = {
+    "value": get_counter_left(aim_date),
+    "color": get_random_color()
+  }
+
 if __name__ == '__main__':
+  try:
+    client = WeChatClient(app_id, app_secret)
+  except WeChatClientException as e:
+    print('微信获取 token 失败，请检查 APP_ID 和 APP_SECRET，或当日调用量是否已达到微信限制。')
+    exit(502)
+
+  wm = WeChatMessage(client)
   count = 0
   try:
     for user_id in user_ids:
+      print('正在发送给 %s, 数据如下：%s' % (user_id, data))
       res = wm.send_template(user_id, template_id, data)
       count+=1
   except WeChatClientException as e:
