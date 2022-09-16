@@ -1,6 +1,4 @@
-**从任何平台过来的朋友们请先阅读此说明（除了下方的英文）！**
-
-**This is a project for someone who wants to send morning greeting to his/her girlfriend/boyfriend but without programming experience. It's just a simple python script taking advantage of Wechat Official Test Platform. It may be useless for people outside China. Please ignore this project if you are not using Wechat or you are a programmer.**
+**从任何平台过来的朋友们请先阅读此说明**
 
 # 每日早安推送给别人家的女朋友
 
@@ -117,5 +115,3 @@ python3 timer.py --cfg xiaohong.yaml &
 2. **增加 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt) 协议：凡使用本项目，其代码必须公开；如由此项目衍生的收费服务，必须提前告知终端用户此项目是可以免费获得及收费的理由；在本项目基础上 Fork、修改后的代码，必须采用 GPLv3 协议。此协议受全世界版权法律保护，本人保留对一切违反本协议行为诉诸法律的权力。**
 3. **版权声明：凡是在世界范围内各平台（包括但不限于抖音、微博、小红书、Github、Gitee、微信公众平台、微信小程序、Youtube、Instagram、Twitter 等）使用本项目（包括但不限于展示、发布使用说明等）时，必须在明显的位置（内容、评论区等）表明出处（在已知账号的情况下，提及原作者；未知账号的情况下，展示本项目的地址）。**
 4. 文件保护声明：如果复制、修改本项目，衍生后的项目可以添加本文件的内容，但禁止删除本文件中的任何内容。
-
-其次，我会偶尔增加新功能。
