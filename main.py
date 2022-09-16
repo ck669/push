@@ -163,10 +163,11 @@ data = {
 
 for index, aim_date in enumerate(split_birthday()):
   key_name = "birthday_left"
-  if aim_date[0] == 'r':
-    aim_date =  str(time.localtime(time.time())[0]) + aim_date.replace('r', '-')
-    aim_date = str(lunar_date(aim_date).to_datetime())
-    aim_date = aim_date[5:10]
+  if aim_date[0] == "r":
+    arr = aim_date[1:].split("-")
+    arr.insert(0,time.localtime(time.time())[0])
+    aim_date = lunar_date(arr[0],int(arr[1]),int(arr[2])).to_datetime()
+    aim_date = str(aim_date)[5:10]
   if index != 0:
     key_name = key_name + "_%d" % index
   data[key_name] = {
