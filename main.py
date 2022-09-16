@@ -1,4 +1,6 @@
+from zhdate import ZhDate as lunar_date
 from datetime import date, datetime, timedelta
+import time
 import math
 from wechatpy import WeChatClient, WeChatClientException
 from wechatpy.client.api import WeChatMessage
@@ -161,6 +163,10 @@ data = {
 
 for index, aim_date in enumerate(split_birthday()):
   key_name = "birthday_left"
+  if aim_date[0] == 'r':
+    aim_date =  str(time.localtime(time.time())[0]) + aim_date.replace('r', '-')
+    aim_date = str(lunar_date(aim_date).to_datetime())
+    aim_date = aim_date[5:10]
   if index != 0:
     key_name = key_name + "_%d" % index
   data[key_name] = {
