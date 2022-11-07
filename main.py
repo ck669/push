@@ -11,6 +11,9 @@ import re
 
 nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
 today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
+# 储存名字和生日
+persons = []
+birthdays = []
 
 start_date = os.getenv('START_DATE')
 city = os.getenv('CITY')
@@ -64,7 +67,7 @@ def get_memorial_days_count():
   return delta.days
 
 # 各种倒计时
-def get_counter_left(aim_date):
+def get_counter_left(name,aim_date):
   if aim_date is None:
     return 0
 
@@ -76,10 +79,12 @@ def get_counter_left(aim_date):
     next = next.replace(nowtime.year)
   else:
     print('日期格式不符合要求')
-    
+
+  if(next.strftime("%Y-%m-%d")==nowtime.strftime("%Y-%m-%d")):
+    return name + '生日快乐 Happy birthday!'
   if next < nowtime:
     next = next.replace(year=next.year + 1)
-  return (next - today).days
+  return "距离%s的生日还有：%d天 ୧⍤⃝ " % (name, (next - today).days) 
 
 # 彩虹屁 接口不稳定，所以失败的话会重新调用，直到成功
 def get_words():
@@ -96,11 +101,17 @@ def format_temperature(temperature):
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
 
-# 返回一个数组，循环产生变量
+# 处理名字和生日数组
 def split_birthday():
   if birthday is None:
     return None
-  return birthday.split('\n')
+  arr = birthday.split('\n')
+  for m in arr:
+    objArr = m.split(' ')
+    persons.append(objArr[0])
+    birthdays.append(objArr[1])
+
+split_birthday()
 
 weather = get_weather()
 if weather is None:
@@ -161,17 +172,17 @@ data = {
   },
 }
 
-for index, aim_date in enumerate(split_birthday()):
+for index, aim_date in enumerate(birthdays):
   key_name = "birthday_left"
   if aim_date[0] == "r":
-    arr = aim_date[1:].split("-")
-    arr.insert(0,time.localtime(time.time())[0])
-    aim_date = lunar_date(arr[0],int(arr[1]),int(arr[2])).to_datetime()
-    aim_date = str(aim_date)[5:10]
+    dArr = aim_date[1:].split("-")
+    dArr.insert(0,date.today().year)
+    aim_date = lunar_date(dArr[0],int(dArr[1]),int(dArr[2])).to_datetime()
+    aim_date = aim_date.strftime("%m-%d")
   if index != 0:
     key_name = key_name + "_%d" % index
   data[key_name] = {
-    "value": get_counter_left(aim_date),
+    "value": get_counter_left(persons[index], aim_date),
     "color": get_random_color()
   }
 
