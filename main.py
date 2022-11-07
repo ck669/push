@@ -84,7 +84,7 @@ def get_counter_left(name,aim_date):
     return name + '生日快乐 Happy birthday!'
   if next < nowtime:
     next = next.replace(year=next.year + 1)
-  return "距离%s的生日还有：%d天 ୧⍤⃝ " % (name, (next - today).days) 
+  return "距离%s的生日还有：%d天" % (name, (next - today).days) 
 
 # 彩虹屁 接口不稳定，所以失败的话会重新调用，直到成功
 def get_words():
