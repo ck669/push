@@ -1,12 +1,8 @@
-**从任何平台过来的朋友们请先阅读此说明（除了下方的英文）！**
-
-**This is a project for someone who wants to send morning greeting to his/her girlfriend/boyfriend but without programming experience. It's just a simple python script taking advantage of Wechat Official Test Platform. It may be useless for people outside China. Please ignore this project if you are not using Wechat or you are a programmer.**
+**从任何平台过来的朋友们请先阅读此说明**
 
 # 每日早安推送给别人家的女朋友
 
 这里有[更新说明](./UPGRADE.md)
-
-新项目（另一个项目）链接：https://dm.iuv520.com
 
 ## 使用说明
 
@@ -40,7 +36,7 @@ TEMPLATE_ID: 模板 ID
 
 USER_ID: 接收人的 OpenID 多个用换行分隔
 
-BIRTHDAY: 倒数日（原生日），换行分隔，见更新说明。格式如 05-20，1999-11-04 这种
+BIRTHDAY: 倒数日（原生日），换行分隔，见更新说明。格式如 05-20，1999-11-04 这种，农历就是 r05-20
 
 START_DATE: 正数日期，格式：2008-08-08
 
@@ -64,7 +60,7 @@ Github 的右上角可以点击 star 给我点鼓励吧亲
 ps. 有一些注意事项在此补充
 
 1. 第一次登录微信公众平台测试号给的 app secret 是错误的，刷新一下页面即可
-2. 生日的日期格式是：`05-20`，纪念日的格式是 `2022-08-09`，请注意区分。城市请写到地级市，比如：`北京`，`广州`，`承德`
+2. 生日的日期格式是：`05-20`，农历就是`r05-20`，纪念日的格式是 `2022-08-09`，请注意区分。城市请写到地级市，比如：`北京`，`广州`，`承德`
 3. 变量中粘贴的各种英文字符串不要有空格，不要有换行，除了模板之外都没有换行
 4. Github Actions 的定时任务，在 workflow 的定义是 `0 0 * * *`，是 UTC 时间的零点，北京时间的八点。但是由于 Github 同一时间任务太多，因此会有延迟
 5. 我会偶尔优化一下代码，emm 但现在我自己在做一个完整的平台项目，想让大家更加便捷地上手
@@ -119,38 +115,3 @@ python3 timer.py --cfg xiaohong.yaml &
 2. **增加 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt) 协议：凡使用本项目，其代码必须公开；如由此项目衍生的收费服务，必须提前告知终端用户此项目是可以免费获得及收费的理由；在本项目基础上 Fork、修改后的代码，必须采用 GPLv3 协议。此协议受全世界版权法律保护，本人保留对一切违反本协议行为诉诸法律的权力。**
 3. **版权声明：凡是在世界范围内各平台（包括但不限于抖音、微博、小红书、Github、Gitee、微信公众平台、微信小程序、Youtube、Instagram、Twitter 等）使用本项目（包括但不限于展示、发布使用说明等）时，必须在明显的位置（内容、评论区等）表明出处（在已知账号的情况下，提及原作者；未知账号的情况下，展示本项目的地址）。**
 4. 文件保护声明：如果复制、修改本项目，衍生后的项目可以添加本文件的内容，但禁止删除本文件中的任何内容。
-
-其次，我会偶尔增加新功能。
-
-## 自我介绍
-
-首发在小红书，但是有大家说字看不清，因此在这里搞一篇使用说明。
-
-> 我一脸懵逼地在小红书新建的群里听说有网友在抖音帮推我这个项目..
->
-> 在此表示十分感谢，因为我懒得做视频。。当时也是一时兴起，所以就只发了小红书。。
->
-> 大家喜欢我的项目我真的十分感谢，不过有朋友说找不到我本人。对于涨粉丝这件事情我还是很感兴趣的。。
-
-**我的小红书昵称==抖音昵称==微博账号==一切社交平台==“纠结当道”**
-
-并且都是柯南的头像，请认准 ID，谨防假冒。
-
-![WechatIMG1](https://user-images.githubusercontent.com/9566402/185802023-1f28c90a-40e7-446e-8dad-420c83f83e38.jpeg)
-![WechatIMG2](https://user-images.githubusercontent.com/9566402/185802026-ef7c1b99-66a8-4535-a6a4-804677657667.jpeg)
-
-
-## 自我推广
-
-本人在维护一套全新的闭源平台，不过要收费。
-
-可以让大家完善地自定义各种字段，模板内容。如果大家愿意，可以通过[链接](https://dm.iuv520.com)查看。但请注意，此群只解答新版推送平台相关的内容，与本项目相关的内容请勿进群。
-
-下方是开源版的QQ群，有需要可以添加。
-
-我才知道微信群上限是200人，过了还要邀请。。
-
-<img src="https://user-images.githubusercontent.com/9566402/186336485-bdf27f75-161f-4a1d-8de6-9af6972d142a.png" width="300px" />
-<img src="https://user-images.githubusercontent.com/9566402/186464691-61529ffc-e5e8-42d6-8f39-1516ca4d3738.jpg" width="300px" />
-
-如果觉得这个项目对你有用，欢迎给我买杯咖啡
