@@ -81,7 +81,7 @@ def get_counter_left(name,aim_date):
     print('日期格式不符合要求')
 
   if(next.strftime("%Y-%m-%d")==nowtime.strftime("%Y-%m-%d")):
-    return name + '生日快乐 Happy birthday!'
+    return "亲爱的%s生日快乐 Happy birthday!" % (name)
   if next < nowtime:
     next = next.replace(year=next.year + 1)
   return "距离%s的生日还有：%d天" % (name, (next - today).days) 
