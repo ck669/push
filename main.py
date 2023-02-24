@@ -125,7 +125,7 @@ def split_birthday():
 
 split_birthday()
 
-weather = get_weathers()先不获取天气
+weather = get_weathers()
 
 #if weather is None:
 #  print('获取天气失败')
