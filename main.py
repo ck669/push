@@ -52,6 +52,18 @@ def get_weather():
   weather = res['data']['list'][0]
   return weather
 
+def get_weathers():
+  return {
+    weather:'无'
+    humidity:'无'
+    wind:'无'
+    airData:'无'
+    airQuality:'无'
+    temp:0
+    high:0
+    low:0
+  }
+
 # 获取当前日期为星期几
 def get_week_day():
   week_list = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
@@ -113,15 +125,7 @@ def split_birthday():
 
 split_birthday()
 
-# weather = get_weather()先不获取天气
-weather.weather = '无'
-weather.humidity = '无'
-weather.wind = '无'
-weather.airData = '无'
-weather.airQuality = '无'
-weather.temp = 0
-weather.high = 0
-weather.low = 0
+weather = get_weathers()先不获取天气
 
 #if weather is None:
 #  print('获取天气失败')
