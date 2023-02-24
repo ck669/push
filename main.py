@@ -45,7 +45,6 @@ def get_weather():
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
   # OpenRefactory Warning: The 'requests.get' method does not use any 'timeout' threshold which may cause program to hang indefinitely.
   res = requests.get(url, timeout=100).json()
-  print(res,city)
   if res is None:
     return None
   if res['code'] != 0:
@@ -115,16 +114,15 @@ def split_birthday():
 split_birthday()
 
 # weather = get_weather()先不获取天气
-weather = {
-  weather:'无',
-  humidity:'无',
-  wind:'无',
-  airData:'无',
-  airQuality:'无',
-  temp:0,
-  high:0,
-  low:0,
-}
+weather.weather = '无'
+weather.humidity = '无'
+weather.wind = '无'
+weather.airData = '无'
+weather.airQuality = '无'
+weather.temp = 0
+weather.high = 0
+weather.low = 0
+
 #if weather is None:
 #  print('获取天气失败')
 #  exit(422)
