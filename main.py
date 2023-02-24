@@ -50,7 +50,7 @@ def get_weather():
     return None
   if res['code'] != 0:
     return None
-  weather = res['data']['list'][0]
+  weather = res['data']['list'][0] or {}
   return weather
 
 # 获取当前日期为星期几
