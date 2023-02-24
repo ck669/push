@@ -117,7 +117,7 @@ split_birthday()
 weather = get_weather()
 if weather is None:
   print('获取天气失败')
-  exit(422)
+  # exit(422)
 data = {
   "city": {
     "value": city,
