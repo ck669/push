@@ -42,16 +42,16 @@ def get_weather():
   if city is None:
     print('请设置城市')
     return None
-  # url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
   # OpenRefactory Warning: The 'requests.get' method does not use any 'timeout' threshold which may cause program to hang indefinitely.
-  # res = requests.get(url, timeout=100).json()
-  # print(res,city)
-  # if res is None:
-  #   return None
-  # if res['code'] != 0:
-  #   return None
-  # weather = res['data']['list'][0]
-  return {}
+  res = requests.get(url, timeout=100).json()
+  print(res,city)
+  if res is None:
+    return None
+  if res['code'] != 0:
+    return None
+  weather = res['data']['list'][0]
+  return weather
 
 # 获取当前日期为星期几
 def get_week_day():
@@ -114,10 +114,11 @@ def split_birthday():
 
 split_birthday()
 
-weather = get_weather()
-if weather is None:
-  print('获取天气失败')
-  # exit(422)
+# weather = get_weather()先不获取天气
+weather = {}
+#if weather is None:
+#  print('获取天气失败')
+#  exit(422)
 data = {
   "city": {
     "value": city,
