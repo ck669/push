@@ -54,14 +54,14 @@ def get_weather():
 
 def get_weathers():
   return {
-    weather:'无'
-    humidity:'无'
-    wind:'无'
-    airData:'无'
-    airQuality:'无'
-    temp:0
-    high:0
-    low:0
+    "weather":'无',
+    "humidity":'无',
+    "wind":'无',
+    "airData":'无',
+    "airQuality":'无',
+    "temp":0,
+    "high":0,
+    "low":0,
   }
 
 # 获取当前日期为星期几
