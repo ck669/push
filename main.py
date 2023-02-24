@@ -132,35 +132,35 @@ data = {
     "color": get_random_color()
   },
   "weather": {
-    "value": weather['weather'],
+    "value": weather['weather'] or '无',
     "color": get_random_color()
   },
   "humidity": {
-    "value": weather['humidity'],
+    "value": weather['humidity'] or '无',
     "color": get_random_color()
   },
   "wind": {
-    "value": weather['wind'],
+    "value": weather['wind'] or '无',
     "color": get_random_color()
   },
   "air_data": {
-    "value": weather['airData'],
+    "value": weather['airData'] or '无',
     "color": get_random_color()
   },
   "air_quality": {
-    "value": weather['airQuality'],
+    "value": weather['airQuality'] or '无',
     "color": get_random_color()
   },
   "temperature": {
-    "value": math.floor(weather['temp']),
+    "value": math.floor(weather['temp']) or '无',
     "color": get_random_color()
   },
   "highest": {
-    "value": math.floor(weather['high']),
+    "value": math.floor(weather['high']) or '无',
     "color": get_random_color()
   },
   "lowest": {
-    "value": math.floor(weather['low']),
+    "value": math.floor(weather['low']) or '无',
     "color": get_random_color()
   },
   "love_days": {
