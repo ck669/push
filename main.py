@@ -115,7 +115,16 @@ def split_birthday():
 split_birthday()
 
 # weather = get_weather()先不获取天气
-weather = {}
+weather = {
+  weather:'无',
+  humidity:'无',
+  wind:'无',
+  airData:'无',
+  airQuality:'无',
+  temp:0,
+  high:0,
+  low:0,
+}
 #if weather is None:
 #  print('获取天气失败')
 #  exit(422)
@@ -133,35 +142,35 @@ data = {
     "color": get_random_color()
   },
   "weather": {
-    "value": weather['weather'] or '无',
+    "value": weather['weather'],
     "color": get_random_color()
   },
   "humidity": {
-    "value": weather['humidity'] or '无',
+    "value": weather['humidity'],
     "color": get_random_color()
   },
   "wind": {
-    "value": weather['wind'] or '无',
+    "value": weather['wind'],
     "color": get_random_color()
   },
   "air_data": {
-    "value": weather['airData'] or '无',
+    "value": weather['airData'],
     "color": get_random_color()
   },
   "air_quality": {
-    "value": weather['airQuality'] or '无',
+    "value": weather['airQuality'],
     "color": get_random_color()
   },
   "temperature": {
-    "value": math.floor(weather['temp']) or '无',
+    "value": math.floor(weather['temp']),
     "color": get_random_color()
   },
   "highest": {
-    "value": math.floor(weather['high']) or '无',
+    "value": math.floor(weather['high']),
     "color": get_random_color()
   },
   "lowest": {
-    "value": math.floor(weather['low']) or '无',
+    "value": math.floor(weather['low']),
     "color": get_random_color()
   },
   "love_days": {
